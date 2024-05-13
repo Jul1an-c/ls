@@ -1,4 +1,8 @@
-package expotec1;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package pro;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,8 +19,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+//Librerias de eventos
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+//Libreria de Swing
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+//Libreria de SQL
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class FormLogin extends JFrame {
+public class login extends JFrame {
 
     private JTextField user;
     private JPasswordField password;
@@ -24,7 +44,7 @@ public class FormLogin extends JFrame {
     private Font Titulos = new Font("Arial", Font.BOLD, 45);
     private Font Font1 = new Font("Arial", Font.BOLD, 20);
 
-    public FormLogin() {
+    public login() {
         //Caracteristicas de la JFRAME  
         this.setLayout(null);
         this.setTitle("Login ");
@@ -65,8 +85,6 @@ public class FormLogin extends JFrame {
         contraseña.setForeground(Color.BLACK);
         contraseña.setFont(Font1);
 
-
-
         this.add(img);
         this.add(ayu);
         this.add(userLabel);
@@ -84,14 +102,13 @@ public class FormLogin extends JFrame {
         password.setBounds(450, 515, 200, 30);
         password.setFont(Font1);
 
-
         this.add(user);
         this.add(password);
     }
 
     public void Botones() {
         JButton iniciar = new JButton("Inicia Sesión");
-        iniciar.setBounds(410,  650, 160, 50);
+        iniciar.setBounds(410, 650, 160, 50);
         iniciar.setFont(Font1);
         iniciar.setForeground(Color.BLACK);
         iniciar.setBackground(Color.decode("#FFC93C"));
@@ -100,11 +117,11 @@ public class FormLogin extends JFrame {
 
         ActionListener evento1 = new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                Conexion conectar = new Conexion();
+            public void actionPerformed(ActionEvent e)  {
+                conexion conectar = new conexion();
                 String dato1 = user.getText();
                 String dato2 = String.valueOf(password.getPassword());
-                String query = "SELECT * FROM Usuarios WHERE Usuario='" + dato1 + "' and Contraseña='" + dato2 + "' ";
+                String query = "SELECT * FROM login WHERE usuario='" + dato1 + "' AND contrasena='" + dato2 + "'";
                 System.out.println(query);
 
                 try {
@@ -120,24 +137,23 @@ public class FormLogin extends JFrame {
                     if (validar > 0) {
                         rs.first();
                         String tipo = rs.getString("TipoUsuario");//compara si son correctos
-
                         if (tipo.equals("1")) {
                             System.out.println("Bienvenido Administrador");
                             JOptionPane.showMessageDialog(null, "Bienvenido Administrador " + dato1);
-                            setVisible(false);
+
                         } else if (tipo.equals("2")) {
                             System.out.println("Bienvenido Secretario");
-                            JOptionPane.showMessageDialog(null, "Bienvenido Secretario " + dato1);
+
                         } else if (tipo.equals("3")) {
                             System.out.println("Bienvenido Usuario");
-                            JOptionPane.showMessageDialog(null, "Bienvenido Usuario " + dato1);
+
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "El usuario no existe en la BD, Intentalo De Nuevo");
                     }
 
                 } catch (SQLException ex) {
-                    Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
@@ -145,6 +161,6 @@ public class FormLogin extends JFrame {
         iniciar.addActionListener(evento1);
 
         this.add(iniciar);
-    };
-
+    }
+;
 }
