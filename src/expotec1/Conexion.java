@@ -1,15 +1,15 @@
-package expotec1;
+package pro;
 
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class Conexion {
+public class conexion {
 
     private static String user = "root";
-    private static String password = "compu123#";
-    private static String url = "jdbc:mysql://localhost:3306/park23";
+    private static String password = "12345678";
+    private static String url = "jdbc:mysql://localhost:3306/CITACHAN";
 
     public Connection getConnection() {
         Connection conectar = null;
@@ -23,6 +23,7 @@ public class Conexion {
     }
 
     Statement createStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
+
 }
